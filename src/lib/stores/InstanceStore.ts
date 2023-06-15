@@ -20,9 +20,13 @@ function createInstances() {
 	return {
 		subscribe,
         addOne: (instance: InstanceInfoType) => update(originalList => {
-            if (originalList.find(s => s.name === instance.name)) {
+            const instanceInStore = originalList.find(s => s.name === instance.name);
+            if (instanceInStore) {
+                // Update the instance in the list.
+                originalList[originalList.indexOf(instanceInStore)] = instance;
                 return originalList;
             }
+            // Add instance to the list.
             originalList.push(instance);
             return originalList;
         }),
